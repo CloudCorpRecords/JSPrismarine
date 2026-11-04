@@ -1,5 +1,107 @@
 # @jsprismarine/prismarine
 
+## 0.17.0
+
+### Minor Changes
+
+- [#2865](https://github.com/JSPrismarine/JSPrismarine/pull/2865) [`8cc701d`](https://github.com/JSPrismarine/JSPrismarine/commit/8cc701d6dc05532abf27c10d87d0a3b6dbd25b73) Thanks [@filiphsps](https://github.com/filiphsps)! - Load Java's `block_transformer` registry and resolve tool transforms from it, which is what makes a hoe till, a shovel path, and an axe strip. The behaviors and the item components were already in place, but the table behind `WorldActions.transform` was an injection point nothing injected, so every tool declined every block. `@jsprismarine/packs` routes `data/<namespace>/block_transformer/` files, the server parses them into `ServerContent.blockTransformers`, and the resolver answers the rule-based providers over the real tag stack and block mapping, including `copy_properties` (a stripped log keeps its axis), the offset predicates (tilling needs air above), and `disallowed_faces` - which is why `transform` now takes the clicked face.
+
+- [#2661](https://github.com/JSPrismarine/JSPrismarine/pull/2661) [`9061024`](https://github.com/JSPrismarine/JSPrismarine/commit/9061024a45c9e8b00be4963b61406d7474f2f82d) Thanks [@filiphsps](https://github.com/filiphsps)! - Remove CommonJS package outputs
+
+- [#2865](https://github.com/JSPrismarine/JSPrismarine/pull/2865) [`541e593`](https://github.com/JSPrismarine/JSPrismarine/commit/541e59345f26ff2ebd70447ebac643fb4e10267a) Thanks [@filiphsps](https://github.com/filiphsps)! - Spawn mobs on the ground under leaves and plants instead of on top of them. The surface spawn pass tries one position per column, and the world adapter answered with one above the highest block that is not air: the canopy over a forest and the tall grass standing on a plain. Every passive spawn rule names the ground it belongs on, so those columns rejected every rule and most of an overworld spawned nothing. `ContentBlockAccess.surfaceY` now walks down to the first block that blocks motion and is not leaves, which is Java's `MOTION_BLOCKING_NO_LEAVES` heightmap and the one its `SpawnPlacements` reads. `WorldContentBiomes` is now `WorldContentFacts` and carries the block types, their flattened columns and the tag stack that the walk reads.
+
+- [#2684](https://github.com/JSPrismarine/JSPrismarine/pull/2684) [`15dc167`](https://github.com/JSPrismarine/JSPrismarine/commit/15dc167df09a9595ea31ad475259f2c489bd3519) Thanks [@filiphsps](https://github.com/filiphsps)! - Route sniffer seed drops, warden sonic boom damage and knockback, and villager raid effects through host capabilities.
+
+### Patch Changes
+
+- [#2660](https://github.com/JSPrismarine/JSPrismarine/pull/2660) [`9891b80`](https://github.com/JSPrismarine/JSPrismarine/commit/9891b80b249f88d1bfbc9b347bcb31555a754698) Thanks [@filiphsps](https://github.com/filiphsps)! - Run furnace-style cooking and match stonecutter and smithing recipes against their station slots.
+
+- [#2664](https://github.com/JSPrismarine/JSPrismarine/pull/2664) [`55b2f24`](https://github.com/JSPrismarine/JSPrismarine/commit/55b2f24e951a61b3c7d260280ce06f2151655254) Thanks [@filiphsps](https://github.com/filiphsps)! - Play the eye of ender's own sounds instead of the client's fallbacks. The actor `DEATH` and `LAUNCH` sound events have no entry for the eye in the client's sound tables, so the eye ended with the player's hurt sound and left the hand with a firework launch. It now plays `block.itemframe.break` when it finishes and `random.bow` at half volume and a low pitch when thrown, by name, as vanilla Bedrock does; `World.playNamedSoundAt` plays a named sound at an exact point with an optional volume and pitch.
+
+- [#2672](https://github.com/JSPrismarine/JSPrismarine/pull/2672) [`7c7335c`](https://github.com/JSPrismarine/JSPrismarine/commit/7c7335cfc93b58e6da2097c4cded8af046abee2b) Thanks [@filiphsps](https://github.com/filiphsps)! - Refuse block placements whose collision boxes overlap the player.
+
+- [#2865](https://github.com/JSPrismarine/JSPrismarine/pull/2865) [`ca0e3d8`](https://github.com/JSPrismarine/JSPrismarine/commit/ca0e3d8daefa131554441e3756165ffc029df078) Thanks [@filiphsps](https://github.com/filiphsps)! - Move the furnace progress bar. A cooking station wrote its counters to the block entity and told nobody, so `ContainerSetDataPacket` — the only thing a Bedrock client draws the arrow and the flame from — was never sent by this server at all, and a furnace cooked behind a dead screen. Each tick now hands the three furnace properties to every player with that station open: the cook ticks the arrow is drawn from, and the fuel left and what it started with that the flame is a fraction of. A property is sent only when its value changes, so a station nobody is cooking in costs one priming send per open and nothing after it.
+
+- [#2699](https://github.com/JSPrismarine/JSPrismarine/pull/2699) [`d7e9d45`](https://github.com/JSPrismarine/JSPrismarine/commit/d7e9d45c682e633ae7d4d90221193785ae9d2760) Thanks [@filiphsps](https://github.com/filiphsps)! - Reduce repeated navigation planning and redundant world work, and add repeatable performance benchmarks.
+
+- [#2664](https://github.com/JSPrismarine/JSPrismarine/pull/2664) [`9683c28`](https://github.com/JSPrismarine/JSPrismarine/commit/9683c28f6c9fe1e6e6438279b5585b12a23d6ce2) Thanks [@filiphsps](https://github.com/filiphsps)! - Make `/kill` land on the ender dragon. The command now deals the `self_destruct` cause, which the dragon's damage rules admit whole instead of refusing it as an attacker-less generic blow, so `/kill @e[type=!player]` kills the dragon, starts its death animation, and completes the fight.
+
+- [#2865](https://github.com/JSPrismarine/JSPrismarine/pull/2865) [`9cb01aa`](https://github.com/JSPrismarine/JSPrismarine/commit/9cb01aa56f926743cf69a8a41667ebe80b385219) Thanks [@filiphsps](https://github.com/filiphsps)! - Read `minecraft:tool` rules for a Bedrock block through the Java names its tags know. The rules name Java blocks, and Java has no lit variants: its furnace and its redstone ore light up as a state rather than as a block of their own. A rule read against the Bedrock name alone made every pickaxe the wrong tool for `minecraft:lit_furnace` and `minecraft:lit_redstone_ore`, so mining one spilled the contents, dropped no block, and dug at bare-hand speed.
+
+- [#2657](https://github.com/JSPrismarine/JSPrismarine/pull/2657) [`02f919d`](https://github.com/JSPrismarine/JSPrismarine/commit/02f919dc0053ce98b35a23d6f51c76c783c05cdb) Thanks [@filiphsps](https://github.com/filiphsps)! - Ignore held Eye of Ender ticks after a frame interaction
+
+- [#2658](https://github.com/JSPrismarine/JSPrismarine/pull/2658) [`3b06d39`](https://github.com/JSPrismarine/JSPrismarine/commit/3b06d39b25b4c19555b079e53cc285f105ce52e0) Thanks [@filiphsps](https://github.com/filiphsps)! - Route nonmob actor hits through the data runtime so they avoid generic mob hurt and death effects. Actors without `minecraft:health` no longer receive a default living health attribute.
+
+- [#2670](https://github.com/JSPrismarine/JSPrismarine/pull/2670) [`ee71f06`](https://github.com/JSPrismarine/JSPrismarine/commit/ee71f06491a40ba6e3f8da149d78d16d396720ce) Thanks [@filiphsps](https://github.com/filiphsps)! - Process each client's reliable-ordered packet frames sequentially so a later mining action cannot overtake the drop from an earlier break.
+
+- [#2671](https://github.com/JSPrismarine/JSPrismarine/pull/2671) [`491111a`](https://github.com/JSPrismarine/JSPrismarine/commit/491111a25245981ded1895f788ea6484d6bd53ee) Thanks [@filiphsps](https://github.com/filiphsps)! - Fix furnace fuel insertion and recipe-book auto-crafting.
+
+- [#2865](https://github.com/JSPrismarine/JSPrismarine/pull/2865) [`f508fb7`](https://github.com/JSPrismarine/JSPrismarine/commit/f508fb7d8257e32c2869f66afad1088cf1d93a38) Thanks [@filiphsps](https://github.com/filiphsps)! - Place a seed item's crop. Java links `wheat_seeds` to `wheat`, `carrot` to `carrots`, and the rest of the plantables to their blocks in code rather than data, so the click path's item-to-block table has to carry them; a click that resolved the seed to no block planted nothing. Sweet berries, glow berries, cocoa beans, and string place their blocks the same way.
+
+- [#2865](https://github.com/JSPrismarine/JSPrismarine/pull/2865) [`a383244`](https://github.com/JSPrismarine/JSPrismarine/commit/a383244eb499091c0f9e541676d8d4ddd0448c45) Thanks [@filiphsps](https://github.com/filiphsps)! - Answer `@e[family=...]` with the entity's real type families. The command host supplied no families at all, and a selector test whose fact is absent fails, so every family selector matched nothing: `/testfor @e[family=mob]` found none of the mobs standing in front of it and `/kill @e[family=monster]` reached nothing. A live entity answers with the families of its active components, so a component group added at runtime counts; the player and a dropped stack, which no data instance backs, answer with the families their own declaration carries.
+
+- [#2664](https://github.com/JSPrismarine/JSPrismarine/pull/2664) [`5e1c982`](https://github.com/JSPrismarine/JSPrismarine/commit/5e1c982a462544ab659fbb43ca38252e862cb446) Thanks [@filiphsps](https://github.com/filiphsps)! - Make monster spawners show their mob and spawn it. A generated spawner's block entity now carries the display fields the client needs to draw the mob in the cage, along with vanilla's spawn rates, and spawners in simulated chunks run Java's cycle: with a player within sixteen blocks they count down, then spawn up to four of their mob on open ground within four blocks, pausing while six already stand there.
+
+- [#2700](https://github.com/JSPrismarine/JSPrismarine/pull/2700) [`fbe361a`](https://github.com/JSPrismarine/JSPrismarine/commit/fbe361a4fb460486f4dc4a7a6636dcb05bf4bb14) Thanks [@filiphsps](https://github.com/filiphsps)! - Allow players to travel to custom dimensions
+
+- [#2665](https://github.com/JSPrismarine/JSPrismarine/pull/2665) [`7adad03`](https://github.com/JSPrismarine/JSPrismarine/commit/7adad036c07cc1be29f4fbd08c4d1b33beb2e8a5) Thanks [@filiphsps](https://github.com/filiphsps)! - Send block inventory contents under each screen's named containers
+
+- [#2664](https://github.com/JSPrismarine/JSPrismarine/pull/2664) [`5b8dab2`](https://github.com/JSPrismarine/JSPrismarine/commit/5b8dab249894edcbe0f73960f21a71383f1ea3bb) Thanks [@filiphsps](https://github.com/filiphsps)! - Keep structure blocks against features from neighboring chunks. A neighbor's decoration pass runs over bare terrain and never sees the pieces a chunk placed, so ore veins and grass patches reaching across the border replaced fortress walls, stronghold libraries, and village houses. The structure's writes now travel with the chunk's patch and the merge drops inbound writes at those positions, which is the outcome Java reaches in either decoration order.
+
+- [#2865](https://github.com/JSPrismarine/JSPrismarine/pull/2865) [`7aadbcf`](https://github.com/JSPrismarine/JSPrismarine/commit/7aadbcfff2dfd71b775da25edc6af6a4e332def9) Thanks [@filiphsps](https://github.com/filiphsps)! - Send a tick's block changes as one `UpdateSubChunkBlocksPacket` per sub chunk instead of one `UpdateBlockPacket` per block. A `/fill` of twenty thousand blocks put twenty thousand packets in a single batch, and a real Bedrock client drops the connection about ten seconds later with nothing logged on either side; the same region now travels as eighty-one packets in a batch of the same size, and the client stays on. A sub chunk with one change still sends the shorter single-block update, which is what a placement or a break is.
+
+- [#2682](https://github.com/JSPrismarine/JSPrismarine/pull/2682) [`ab8dc23`](https://github.com/JSPrismarine/JSPrismarine/commit/ab8dc23b2a2f3818384fef561cd9f05fb49dfce1) Thanks [@filiphsps](https://github.com/filiphsps)! - Fix natural mob spawn placement
+
+- [#2876](https://github.com/JSPrismarine/JSPrismarine/pull/2876) [`1f62c79`](https://github.com/JSPrismarine/JSPrismarine/commit/1f62c79181e437a23348339436d405a3f0e59073) Thanks [@filiphsps](https://github.com/filiphsps)! - Make `/teleport` move data-driven mobs. The command wrote the new position onto the mob's body, but the entity runtime owns where a mob stands and copies that onto the body every tick, so the mob snapped back and the client never saw it move. The command now teleports the runtime entity and its body follows.
+
+- [#2876](https://github.com/JSPrismarine/JSPrismarine/pull/2876) [`7468217`](https://github.com/JSPrismarine/JSPrismarine/commit/74682176453a6d9c76b6717be8406149c8e49a58) Thanks [@filiphsps](https://github.com/filiphsps)! - Add Java's `/tick` command. `/tick rate <ticks per second>` sets the target tick rate, `/tick freeze` and `/tick unfreeze` hold the world and its functions still while the server keeps serving players, `/tick step [time]` runs a frozen world forward a few ticks, `/tick sprint <time>` runs ticks back to back, and `/tick query` reports the rate and how long a tick takes. `ServerCommandHost` gains a required `ticking` group for the command to drive the tick loop.
+
+- [#2664](https://github.com/JSPrismarine/JSPrismarine/pull/2664) [`d731b85`](https://github.com/JSPrismarine/JSPrismarine/commit/d731b85039c2c6ebcc1a5c187813ea06def716ff) Thanks [@filiphsps](https://github.com/filiphsps)! - Turn the block states structure processors introduce with the template they land in. Java turns a template's states after its processors run, so a jigsaw block's `final_state` and a rule's `output_state` face the way the building faces; this server turns the template first, so those states were placed as written and every village house got an east-facing doorstep stair and a pen gate set into the wrong wall. `ProcessorContext` now carries the placement, the jigsaw replacement and rule processors turn the states they name by it, and both template placement paths pass it.
+
+- [#2865](https://github.com/JSPrismarine/JSPrismarine/pull/2865) [`82b3c66`](https://github.com/JSPrismarine/JSPrismarine/commit/82b3c66de90f6b4a78940ce791b26de86a08051b) Thanks [@filiphsps](https://github.com/filiphsps)! - Answer `WorldActions.hasBlockTag` with undefined for a tag the loaded stack does not declare, which is not the same answer as `false`. A rule whose tag nobody loaded read every block as being outside it, so on a server booted without the Java vanilla datapack a tag-driven rule silently flipped: crops would have stopped growing and popped off their farmland. Each rule now falls back to its own names, the way it already did for a host that answers no tags at all.
+
+- [#2664](https://github.com/JSPrismarine/JSPrismarine/pull/2664) [`1ebe485`](https://github.com/JSPrismarine/JSPrismarine/commit/1ebe485c15054851919e45f1758ffee12c8fc99a) Thanks [@filiphsps](https://github.com/filiphsps)! - Kill players and mobs that fall out of the world. Sixty-four blocks under the dimension's floor, a player or a data-driven mob now takes four half-hearts every half second, as vanilla does; the void reaches creative players but not spectators, and anything without health down there, a dropped stack or an arrow, is discarded.
+- Updated dependencies [[`8cc701d`](https://github.com/JSPrismarine/JSPrismarine/commit/8cc701d6dc05532abf27c10d87d0a3b6dbd25b73), [`2d58d62`](https://github.com/JSPrismarine/JSPrismarine/commit/2d58d62a921430d98f958321c0d2a741b723c362), [`9891b80`](https://github.com/JSPrismarine/JSPrismarine/commit/9891b80b249f88d1bfbc9b347bcb31555a754698), [`dd31bb1`](https://github.com/JSPrismarine/JSPrismarine/commit/dd31bb11dba9ef22110fbd8f8c32b19fe8cfac58), [`d7e9d45`](https://github.com/JSPrismarine/JSPrismarine/commit/d7e9d45c682e633ae7d4d90221193785ae9d2760), [`81500d0`](https://github.com/JSPrismarine/JSPrismarine/commit/81500d03121008375fee0af0bb321469bd28c2fd), [`8026821`](https://github.com/JSPrismarine/JSPrismarine/commit/8026821d4584b86fe5924f502242c58ad12a6cdc), [`06e6111`](https://github.com/JSPrismarine/JSPrismarine/commit/06e6111a1a4c4b9554aea36f14b1932c52714001), [`9061024`](https://github.com/JSPrismarine/JSPrismarine/commit/9061024a45c9e8b00be4963b61406d7474f2f82d), [`569ad6e`](https://github.com/JSPrismarine/JSPrismarine/commit/569ad6e134e70eefe3e9aba65e048b3f63101462), [`aedeea4`](https://github.com/JSPrismarine/JSPrismarine/commit/aedeea48664db01e25e98a8a231bd1d6d7b2adcd), [`ab8dc23`](https://github.com/JSPrismarine/JSPrismarine/commit/ab8dc23b2a2f3818384fef561cd9f05fb49dfce1), [`7468217`](https://github.com/JSPrismarine/JSPrismarine/commit/74682176453a6d9c76b6717be8406149c8e49a58), [`d731b85`](https://github.com/JSPrismarine/JSPrismarine/commit/d731b85039c2c6ebcc1a5c187813ea06def716ff), [`c36489a`](https://github.com/JSPrismarine/JSPrismarine/commit/c36489a66251a6f1b134ac4864d8722247a97dca), [`82b3c66`](https://github.com/JSPrismarine/JSPrismarine/commit/82b3c66de90f6b4a78940ce791b26de86a08051b), [`15dc167`](https://github.com/JSPrismarine/JSPrismarine/commit/15dc167df09a9595ea31ad475259f2c489bd3519)]:
+  - @jsprismarine/packs@0.17.0
+  - @jsprismarine/item-behaviors@0.17.0
+  - @jsprismarine/block-behaviors@0.17.0
+  - @jsprismarine/commands@0.17.0
+  - @jsprismarine/entity-goals@0.17.0
+  - @jsprismarine/engine-systems@0.17.0
+  - @jsprismarine/advancements@0.17.0
+  - @jsprismarine/bedrock-data@0.17.0
+  - @jsprismarine/binaryutils@0.17.0
+  - @jsprismarine/blocks@0.17.0
+  - @jsprismarine/brigadier@0.17.0
+  - @jsprismarine/chunkgen@0.17.0
+  - @jsprismarine/color-parser@0.17.0
+  - @jsprismarine/console-protocol@0.17.0
+  - @jsprismarine/content@0.17.0
+  - @jsprismarine/enchantments@0.17.0
+  - @jsprismarine/entities@0.17.0
+  - @jsprismarine/entity-brains@0.17.0
+  - @jsprismarine/errors@0.17.0
+  - @jsprismarine/features@0.17.0
+  - @jsprismarine/items@0.17.0
+  - @jsprismarine/kernel@0.17.0
+  - @jsprismarine/leveldb@0.17.0
+  - @jsprismarine/lighting@0.17.0
+  - @jsprismarine/logger@0.17.0
+  - @jsprismarine/loot@0.17.0
+  - @jsprismarine/mapping@0.17.0
+  - @jsprismarine/math@0.17.0
+  - @jsprismarine/mcfunction@0.17.0
+  - @jsprismarine/minecraft@0.17.0
+  - @jsprismarine/nbt@0.17.0
+  - @jsprismarine/predicates@0.17.0
+  - @jsprismarine/protocol@0.17.0
+  - @jsprismarine/raknet@0.17.0
+  - @jsprismarine/recipes@0.17.0
+  - @jsprismarine/spawning@0.17.0
+  - @jsprismarine/structures@0.17.0
+  - @jsprismarine/trading@0.17.0
+  - @jsprismarine/worldgen@0.17.0
+
 ## 0.16.0
 
 ### Minor Changes

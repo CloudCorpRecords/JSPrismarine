@@ -1,5 +1,18 @@
 # @jsprismarine/server
 
+## 0.17.0
+
+### Patch Changes
+
+- Updated dependencies [[`8cc701d`](https://github.com/JSPrismarine/JSPrismarine/commit/8cc701d6dc05532abf27c10d87d0a3b6dbd25b73), [`9891b80`](https://github.com/JSPrismarine/JSPrismarine/commit/9891b80b249f88d1bfbc9b347bcb31555a754698), [`55b2f24`](https://github.com/JSPrismarine/JSPrismarine/commit/55b2f24e951a61b3c7d260280ce06f2151655254), [`7c7335c`](https://github.com/JSPrismarine/JSPrismarine/commit/7c7335cfc93b58e6da2097c4cded8af046abee2b), [`ca0e3d8`](https://github.com/JSPrismarine/JSPrismarine/commit/ca0e3d8daefa131554441e3756165ffc029df078), [`d7e9d45`](https://github.com/JSPrismarine/JSPrismarine/commit/d7e9d45c682e633ae7d4d90221193785ae9d2760), [`9683c28`](https://github.com/JSPrismarine/JSPrismarine/commit/9683c28f6c9fe1e6e6438279b5585b12a23d6ce2), [`9cb01aa`](https://github.com/JSPrismarine/JSPrismarine/commit/9cb01aa56f926743cf69a8a41667ebe80b385219), [`9061024`](https://github.com/JSPrismarine/JSPrismarine/commit/9061024a45c9e8b00be4963b61406d7474f2f82d), [`02f919d`](https://github.com/JSPrismarine/JSPrismarine/commit/02f919dc0053ce98b35a23d6f51c76c783c05cdb), [`3b06d39`](https://github.com/JSPrismarine/JSPrismarine/commit/3b06d39b25b4c19555b079e53cc285f105ce52e0), [`ee71f06`](https://github.com/JSPrismarine/JSPrismarine/commit/ee71f06491a40ba6e3f8da149d78d16d396720ce), [`491111a`](https://github.com/JSPrismarine/JSPrismarine/commit/491111a25245981ded1895f788ea6484d6bd53ee), [`f508fb7`](https://github.com/JSPrismarine/JSPrismarine/commit/f508fb7d8257e32c2869f66afad1088cf1d93a38), [`a383244`](https://github.com/JSPrismarine/JSPrismarine/commit/a383244eb499091c0f9e541676d8d4ddd0448c45), [`541e593`](https://github.com/JSPrismarine/JSPrismarine/commit/541e59345f26ff2ebd70447ebac643fb4e10267a), [`5e1c982`](https://github.com/JSPrismarine/JSPrismarine/commit/5e1c982a462544ab659fbb43ca38252e862cb446), [`fbe361a`](https://github.com/JSPrismarine/JSPrismarine/commit/fbe361a4fb460486f4dc4a7a6636dcb05bf4bb14), [`7adad03`](https://github.com/JSPrismarine/JSPrismarine/commit/7adad036c07cc1be29f4fbd08c4d1b33beb2e8a5), [`5b8dab2`](https://github.com/JSPrismarine/JSPrismarine/commit/5b8dab249894edcbe0f73960f21a71383f1ea3bb), [`7aadbcf`](https://github.com/JSPrismarine/JSPrismarine/commit/7aadbcfff2dfd71b775da25edc6af6a4e332def9), [`ab8dc23`](https://github.com/JSPrismarine/JSPrismarine/commit/ab8dc23b2a2f3818384fef561cd9f05fb49dfce1), [`1f62c79`](https://github.com/JSPrismarine/JSPrismarine/commit/1f62c79181e437a23348339436d405a3f0e59073), [`7468217`](https://github.com/JSPrismarine/JSPrismarine/commit/74682176453a6d9c76b6717be8406149c8e49a58), [`d731b85`](https://github.com/JSPrismarine/JSPrismarine/commit/d731b85039c2c6ebcc1a5c187813ea06def716ff), [`82b3c66`](https://github.com/JSPrismarine/JSPrismarine/commit/82b3c66de90f6b4a78940ce791b26de86a08051b), [`1ebe485`](https://github.com/JSPrismarine/JSPrismarine/commit/1ebe485c15054851919e45f1758ffee12c8fc99a), [`15dc167`](https://github.com/JSPrismarine/JSPrismarine/commit/15dc167df09a9595ea31ad475259f2c489bd3519)]:
+  - @jsprismarine/packs@0.17.0
+  - @jsprismarine/prismarine@0.17.0
+  - @jsprismarine/color-parser@0.17.0
+  - @jsprismarine/console-protocol@0.17.0
+  - @jsprismarine/logger@0.17.0
+  - @jsprismarine/minecraft@0.17.0
+  - @jsprismarine/raknet@0.17.0
+
 ## 0.16.0
 
 ### Patch Changes

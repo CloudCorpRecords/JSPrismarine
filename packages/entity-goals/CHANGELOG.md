@@ -1,5 +1,18 @@
 # @jsprismarine/entity-goals
 
+## 0.17.0
+
+### Minor Changes
+
+- [#2661](https://github.com/JSPrismarine/JSPrismarine/pull/2661) [`9061024`](https://github.com/JSPrismarine/JSPrismarine/commit/9061024a45c9e8b00be4963b61406d7474f2f82d) Thanks [@filiphsps](https://github.com/filiphsps)! - Remove CommonJS package outputs
+
+### Patch Changes
+
+- [#2699](https://github.com/JSPrismarine/JSPrismarine/pull/2699) [`d7e9d45`](https://github.com/JSPrismarine/JSPrismarine/commit/d7e9d45c682e633ae7d4d90221193785ae9d2760) Thanks [@filiphsps](https://github.com/filiphsps)! - Reduce repeated navigation planning and redundant world work, and add repeatable performance benchmarks.
+- Updated dependencies [[`9061024`](https://github.com/JSPrismarine/JSPrismarine/commit/9061024a45c9e8b00be4963b61406d7474f2f82d)]:
+  - @jsprismarine/content@0.17.0
+  - @jsprismarine/entities@0.17.0
+
 ## 0.16.0
 
 ### Minor Changes

@@ -1,5 +1,19 @@
 # @jsprismarine/spawning
 
+## 0.17.0
+
+### Minor Changes
+
+- [#2661](https://github.com/JSPrismarine/JSPrismarine/pull/2661) [`9061024`](https://github.com/JSPrismarine/JSPrismarine/commit/9061024a45c9e8b00be4963b61406d7474f2f82d) Thanks [@filiphsps](https://github.com/filiphsps)! - Remove CommonJS package outputs
+
+### Patch Changes
+
+- [#2682](https://github.com/JSPrismarine/JSPrismarine/pull/2682) [`ab8dc23`](https://github.com/JSPrismarine/JSPrismarine/commit/ab8dc23b2a2f3818384fef561cd9f05fb49dfce1) Thanks [@filiphsps](https://github.com/filiphsps)! - Fix natural mob spawn placement
+- Updated dependencies [[`8cc701d`](https://github.com/JSPrismarine/JSPrismarine/commit/8cc701d6dc05532abf27c10d87d0a3b6dbd25b73), [`9061024`](https://github.com/JSPrismarine/JSPrismarine/commit/9061024a45c9e8b00be4963b61406d7474f2f82d)]:
+  - @jsprismarine/packs@0.17.0
+  - @jsprismarine/entities@0.17.0
+  - @jsprismarine/predicates@0.17.0
+
 ## 0.16.0
 
 ### Minor Changes

@@ -1,5 +1,25 @@
 # @jsprismarine/commands
 
+## 0.17.0
+
+### Minor Changes
+
+- [#2661](https://github.com/JSPrismarine/JSPrismarine/pull/2661) [`9061024`](https://github.com/JSPrismarine/JSPrismarine/commit/9061024a45c9e8b00be4963b61406d7474f2f82d) Thanks [@filiphsps](https://github.com/filiphsps)! - Remove CommonJS package outputs
+
+- [#2876](https://github.com/JSPrismarine/JSPrismarine/pull/2876) [`7468217`](https://github.com/JSPrismarine/JSPrismarine/commit/74682176453a6d9c76b6717be8406149c8e49a58) Thanks [@filiphsps](https://github.com/filiphsps)! - Add Java's `/tick` command. `/tick rate <ticks per second>` sets the target tick rate, `/tick freeze` and `/tick unfreeze` hold the world and its functions still while the server keeps serving players, `/tick step [time]` runs a frozen world forward a few ticks, `/tick sprint <time>` runs ticks back to back, and `/tick query` reports the rate and how long a tick takes. `ServerCommandHost` gains a required `ticking` group for the command to drive the tick loop.
+
+- [#2865](https://github.com/JSPrismarine/JSPrismarine/pull/2865) [`c36489a`](https://github.com/JSPrismarine/JSPrismarine/commit/c36489a66251a6f1b134ac4864d8722247a97dca) Thanks [@filiphsps](https://github.com/filiphsps)! - Keep a bare block-state literal on the type Bedrock's grammar gives it: `=7` parses as an integer and `=true` as a boolean, with quoted values staying strings. The block catalog hashes a state with its types, so a `"7"` where an `int` property stands named no block and `/setblock minecraft:farmland ["moisturized_amount"=7]` reported success while placing nothing. `/testforblock` compares `true` and a stored `1` as the same byte.
+
+### Patch Changes
+
+- [#2865](https://github.com/JSPrismarine/JSPrismarine/pull/2865) [`dd31bb1`](https://github.com/JSPrismarine/JSPrismarine/commit/dd31bb11dba9ef22110fbd8f8c32b19fe8cfac58) Thanks [@filiphsps](https://github.com/filiphsps)! - Read a block state list in `/fill`, as `/setblock` already does. Both of Bedrock's and Java's grammars put one between the block and the handling mode, and without it every fill wrote the block's default state: a region of logs all pointed the same way and a region of leaves was always the kind that decays.
+
+- [#2876](https://github.com/JSPrismarine/JSPrismarine/pull/2876) [`aedeea4`](https://github.com/JSPrismarine/JSPrismarine/commit/aedeea48664db01e25e98a8a231bd1d6d7b2adcd) Thanks [@filiphsps](https://github.com/filiphsps)! - Report a failed `/summon` as "Unable to summon entity". It sent the error "Summoned new entity" when the pack did not declare the type, which read like a success.
+- Updated dependencies [[`9061024`](https://github.com/JSPrismarine/JSPrismarine/commit/9061024a45c9e8b00be4963b61406d7474f2f82d)]:
+  - @jsprismarine/brigadier@0.17.0
+  - @jsprismarine/mapping@0.17.0
+  - @jsprismarine/minecraft@0.17.0
+
 ## 0.16.0
 
 ### Minor Changes

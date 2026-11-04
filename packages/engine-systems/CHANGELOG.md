@@ -1,5 +1,18 @@
 # @jsprismarine/engine-systems
 
+## 0.17.0
+
+### Minor Changes
+
+- [#2661](https://github.com/JSPrismarine/JSPrismarine/pull/2661) [`9061024`](https://github.com/JSPrismarine/JSPrismarine/commit/9061024a45c9e8b00be4963b61406d7474f2f82d) Thanks [@filiphsps](https://github.com/filiphsps)! - Remove CommonJS package outputs
+
+### Patch Changes
+
+- [#2876](https://github.com/JSPrismarine/JSPrismarine/pull/2876) [`8026821`](https://github.com/JSPrismarine/JSPrismarine/commit/8026821d4584b86fe5924f502242c58ad12a6cdc) Thanks [@filiphsps](https://github.com/filiphsps)! - Let a flipped lever power the block it hangs on. The signal code read a state named `attachment_face` that no Bedrock lever has, so every lever fell back to "down" and never powered a block resting on its support block. A lamp touching the lever lit, but a lamp on the lever's wall did not. It now reads `lever_direction`.
+- Updated dependencies [[`9061024`](https://github.com/JSPrismarine/JSPrismarine/commit/9061024a45c9e8b00be4963b61406d7474f2f82d)]:
+  - @jsprismarine/blocks@0.17.0
+  - @jsprismarine/mapping@0.17.0
+
 ## 0.16.0
 
 ### Minor Changes
